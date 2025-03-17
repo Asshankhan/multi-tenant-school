@@ -1,0 +1,19 @@
+datasource db {
+  provider = "sqlite"
+  url      = "file:./database.db"
+}
+
+model School {
+  id        String  @id @default(uuid())
+  name      String
+  subdomain String  @unique
+  profile   Profile?
+}
+
+model Profile {
+  id         String  @id @default(uuid())
+  schoolId   String  @unique
+  description String?
+  contact    String?
+  school     School  @relation(fields: [schoolId], references: [id])
+}
